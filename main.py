@@ -8,9 +8,15 @@ class Reporte:
         self.print_init()
     
     def print_init(self):
+        '''
+        Function for print part initial of reports.
+        '''
         print(f"\nReporte de Transacciones\n{'-' * 45}\n")
         
     def load_data(self, path_to_file):
+        '''
+        Load data from CSV file.
+        '''
         try:
             df = pd.read_csv(path_to_file)
             return df
@@ -18,9 +24,13 @@ class Reporte:
             raise Exception(f"Error in load_data: {e}")
             
     def get_final_balance(self):
+        '''
+        Get final balance of transactions for report.
+        '''
         try:
             total_credit = 0
             total_debit = 0
+            # Iterate over rows of dataframe
             for index, row in self.df.iterrows():
                 if row["tipo"] == "Crédito":
                     total_credit += row["monto"]
@@ -32,9 +42,13 @@ class Reporte:
            print("Error in get_final_balance: ", e)
             
     def get_high_amount_transactions(self):
+        '''
+        Get high amount transactions for report.
+        '''
         try:
             value_high = 0
             id_high = 0
+            # Iterate over rows of dataframe
             for index, row in self.df.iterrows():
                 if row["monto"] > value_high:
                     value_high = row["monto"]
@@ -44,9 +58,13 @@ class Reporte:
             print("Error in get_high_amount_transactions: ", e)
     
     def get_transaction_count(self):    
+        '''
+        Get transaction count for report.
+        '''
         try:
             unique_types = self.df["tipo"].unique()
             count_type = {element: 0 for element in unique_types}
+            # Iterate over rows of dataframe
             for index, row in self.df.iterrows():
                 if row["tipo"] in count_type:
                     count_type[row["tipo"]] += 1
